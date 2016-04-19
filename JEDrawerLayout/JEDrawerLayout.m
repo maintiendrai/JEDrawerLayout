@@ -94,7 +94,7 @@ static JEDrawerLayout *rn_frostedMenu;
         _tintColor = [UIColor colorWithWhite:0.2 alpha:0.73];
         _borderWidth = 2;
         _itemBackgroundColor = [UIColor lightGrayColor];
-    
+        
         
         [_images enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL *stop) {
             RNCalloutItemView *view = [[RNCalloutItemView alloc] init];
@@ -116,8 +116,11 @@ static JEDrawerLayout *rn_frostedMenu;
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    //    [self.navigationItem setLeftBarButtonItem:nil];
     
     
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     
     return self;
 }
@@ -179,6 +182,7 @@ static JEDrawerLayout *rn_frostedMenu;
 }
 
 - (void)showInViewController:(UIViewController *)controller animated:(BOOL)animated {
+    
     if (rn_frostedMenu != nil) {
         [rn_frostedMenu dismissAnimated:NO completion:nil];
     }
@@ -212,7 +216,7 @@ static JEDrawerLayout *rn_frostedMenu;
         self.contentView.frame = contentFrame;
         self.blurView.frame = blurFrame;
     };
-  
+    
     
     if (animated) {
         [UIView animateWithDuration:self.animationDuration
@@ -225,23 +229,6 @@ static JEDrawerLayout *rn_frostedMenu;
         animations();
     }
     
-    CGFloat initDelay = 0.1f;
-    SEL sdkSpringSelector = NSSelectorFromString(@"animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:");
-    BOOL sdkHasSpringAnimation = [UIView respondsToSelector:sdkSpringSelector];
-    
-    [self.itemViews enumerateObjectsUsingBlock:^(RNCalloutItemView *view, NSUInteger idx, BOOL *stop) {
-        view.layer.transform = CATransform3DMakeScale(0.3, 0.3, 1);
-        view.alpha = 0;
-        view.originalBackgroundColor = self.itemBackgroundColor;
-        view.layer.borderWidth = self.borderWidth;
-        
-        if (sdkHasSpringAnimation) {
-            [self animateSpringWithView:view idx:idx initDelay:initDelay];
-        }
-        else {
-            [self animateFauxBounceWithView:view idx:idx initDelay:initDelay];
-        }
-    }];
     
 }
 
@@ -269,14 +256,14 @@ static JEDrawerLayout *rn_frostedMenu;
 
 - (void)dismissAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     void (^completionBlock)(BOOL) = ^(BOOL finished){
-        [self rn_removeFromParentViewControllerCallingAppearanceMethods:YES];
-
-		if (completion) {
-			completion(finished);
-		}
+        
+        if (completion) {
+            completion(finished);
+        }
     };
     
-
+    
+    
     
     if (animated) {
         CGFloat parentWidth = self.view.bounds.size.width;
@@ -285,7 +272,7 @@ static JEDrawerLayout *rn_frostedMenu;
         
         CGRect blurFrame = self.blurView.frame;
         blurFrame.origin.x = self.showFromRight ? parentWidth : 0;
-        blurFrame.size.width = 0;
+        blurFrame.size.width = 100;
         
         [UIView animateWithDuration:self.animationDuration
                               delay:0
@@ -299,6 +286,20 @@ static JEDrawerLayout *rn_frostedMenu;
     else {
         completionBlock(YES);
     }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self removeFromParentViewController];
+    [self didMoveToParentViewController:self];
+    
+    
+    [UIView animateWithDuration:1.f animations:^{
+        CGRect frame = self.view.frame;
+        //        frame.origin.x = -self.menuViewSize;
+        frame.origin.x = self.view.bounds.size.width;
+        self.view.frame = frame;
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
 }
 
 #pragma mark - Gestures
@@ -309,12 +310,6 @@ static JEDrawerLayout *rn_frostedMenu;
     CGPoint location = [recognizer locationInView:self.view];
     if (! CGRectContainsPoint(self.contentView.frame, location)) {
         [self dismissAnimated:YES completion:nil];
-    }
-    else {
-        NSInteger tapIndex = [self indexOfTap:[recognizer locationInView:self.contentView]];
-        if (tapIndex != NSNotFound) {
-            [self didTapItemAtIndex:tapIndex];
-        }
     }
 }
 
@@ -345,72 +340,6 @@ static JEDrawerLayout *rn_frostedMenu;
 }
 
 
-#pragma mark - Private
-
-- (void)didTapItemAtIndex:(NSUInteger)index {
-    BOOL didEnable = ! [self.selectedIndices containsIndex:index];
-    
-    if (self.borderColors) {
-        UIColor *stroke = self.borderColors[index];
-        UIView *view = self.itemViews[index];
-        
-        if (didEnable) {
-            if (_isSingleSelect){
-                [self.selectedIndices removeAllIndexes];
-                [self.itemViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    UIView *aView = (UIView *)obj;
-                    [[aView layer] setBorderColor:[[UIColor clearColor] CGColor]];
-                }];
-            }
-            view.layer.borderColor = stroke.CGColor;
-            
-            CABasicAnimation *borderAnimation = [CABasicAnimation animationWithKeyPath:@"borderColor"];
-            borderAnimation.fromValue = (id)[UIColor clearColor].CGColor;
-            borderAnimation.toValue = (id)stroke.CGColor;
-            borderAnimation.duration = 0.5f;
-            [view.layer addAnimation:borderAnimation forKey:nil];
-            
-            [self.selectedIndices addIndex:index];
-        }
-        else {
-            if (!_isSingleSelect){
-                view.layer.borderColor = [UIColor clearColor].CGColor;
-                [self.selectedIndices removeIndex:index];
-            }
-        }
-        
-        CGRect pathFrame = CGRectMake(-CGRectGetMidX(view.bounds), -CGRectGetMidY(view.bounds), view.bounds.size.width, view.bounds.size.height);
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:pathFrame cornerRadius:view.layer.cornerRadius];
-        
-        // accounts for left/right offset and contentOffset of scroll view
-        CGPoint shapePosition = [self.view convertPoint:view.center fromView:self.contentView];
-        
-        CAShapeLayer *circleShape = [CAShapeLayer layer];
-        circleShape.path = path.CGPath;
-        circleShape.position = shapePosition;
-        circleShape.fillColor = [UIColor clearColor].CGColor;
-        circleShape.opacity = 0;
-        circleShape.strokeColor = stroke.CGColor;
-        circleShape.lineWidth = self.borderWidth;
-        
-        [self.view.layer addSublayer:circleShape];
-        
-        CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        scaleAnimation.fromValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
-        scaleAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(2.5, 2.5, 1)];
-        
-        CABasicAnimation *alphaAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        alphaAnimation.fromValue = @1;
-        alphaAnimation.toValue = @0;
-        
-        CAAnimationGroup *animation = [CAAnimationGroup animation];
-        animation.animations = @[scaleAnimation, alphaAnimation];
-        animation.duration = 0.5f;
-        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-        [circleShape addAnimation:animation forKey:nil];
-    }
-   
-}
 
 - (void)layoutSubviews {
     CGFloat x = self.showFromRight ? self.parentViewController.view.bounds.size.width - _width : 0;
@@ -457,23 +386,13 @@ static JEDrawerLayout *rn_frostedMenu;
 }
 
 - (void)rn_addToParentViewController:(UIViewController *)parentViewController callingAppearanceMethods:(BOOL)callAppearanceMethods {
-    if (self.parentViewController != nil) {
-        [self rn_removeFromParentViewControllerCallingAppearanceMethods:callAppearanceMethods];
-    }
     
     if (callAppearanceMethods) [self beginAppearanceTransition:YES animated:NO];
-    [parentViewController addChildViewController:self];
+    //    [parentViewController addChildViewController:self];
     [parentViewController.view addSubview:self.view];
-    [self didMoveToParentViewController:self];
+    //    [self didMoveToParentViewController:self];
     if (callAppearanceMethods) [self endAppearanceTransition];
 }
 
-- (void)rn_removeFromParentViewControllerCallingAppearanceMethods:(BOOL)callAppearanceMethods {
-    if (callAppearanceMethods) [self beginAppearanceTransition:NO animated:NO];
-    [self willMoveToParentViewController:nil];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
-    if (callAppearanceMethods) [self endAppearanceTransition];
-}
 
 @end
