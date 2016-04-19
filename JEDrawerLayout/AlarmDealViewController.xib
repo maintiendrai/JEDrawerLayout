@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlarmDealViewController">
+            <connections>
+                <outlet property="dealNoteView" destination="NYE-ee-WS7" id="1pl-qv-Y5a"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报警处理" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSb-lf-HxS">
+                    <rect key="frame" x="250" y="43" width="100" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Jo0-i7-ypB"/>
+                        <constraint firstAttribute="width" constant="100" id="zeo-on-Atd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Jb-vb-Ydw">
+                    <rect key="frame" x="220" y="119" width="160" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="NMT-Ip-E95"/>
+                        <constraint firstAttribute="height" constant="40" id="P76-RC-qf2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="业主误触">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onDealMethodButtonPressed:" destination="-1" eventType="touchUpInside" id="gYp-Xk-9vb"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9w4-eO-GRy">
+                    <rect key="frame" x="220" y="293" width="160" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="U2b-gm-Omd"/>
+                        <constraint firstAttribute="width" constant="160" id="cN2-a6-8Nm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="电话解决">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onDealMethodButtonPressed:" destination="-1" eventType="touchUpInside" id="QjB-16-cUz"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEK-Bz-6Bm">
+                    <rect key="frame" x="220" y="235" width="160" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Ew1-Ol-xHJ"/>
+                        <constraint firstAttribute="width" constant="160" id="HRV-4u-Sjj"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="到场解决">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onDealMethodButtonPressed:" destination="-1" eventType="touchUpInside" id="nHy-75-tN2"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJh-cR-lds">
+                    <rect key="frame" x="220" y="351" width="160" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="CuH-VV-IDd"/>
+                        <constraint firstAttribute="width" constant="160" id="KCZ-ct-WC9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="其它">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onDealMethodButtonPressed:" destination="-1" eventType="touchUpInside" id="XnN-Zs-rSy"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQp-FP-FGJ">
+                    <rect key="frame" x="220" y="530" width="160" height="40"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="4X0-7S-6aL"/>
+                        <constraint firstAttribute="height" constant="40" id="6zA-wg-2r2"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="确定处理">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onDealButtonPressed:" destination="-1" eventType="touchUpInside" id="Zte-gi-h7F"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sft-gT-ITL">
+                    <rect key="frame" x="220" y="177" width="160" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="tQj-Tt-dOH"/>
+                        <constraint firstAttribute="height" constant="40" id="uuE-5b-vry"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="设备失灵">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onDealMethodButtonPressed:" destination="-1" eventType="touchUpInside" id="94G-au-dRi"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NYE-ee-WS7">
+                    <rect key="frame" x="180" y="391" width="240" height="82"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="ZGZ-jN-Ad3"/>
+                        <constraint firstAttribute="height" constant="82" id="h0v-Fj-r3v"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="keyPath">
+                            <color key="value" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="NYE-ee-WS7" firstAttribute="top" secondItem="fJh-cR-lds" secondAttribute="bottom" id="4NM-zN-UVa"/>
+                <constraint firstItem="NYE-ee-WS7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Cg0-Dr-6rn"/>
+                <constraint firstItem="bQp-FP-FGJ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DRU-Uv-Q57"/>
+                <constraint firstItem="9w4-eO-GRy" firstAttribute="top" secondItem="fEK-Bz-6Bm" secondAttribute="bottom" constant="18" id="EbF-fG-fW2"/>
+                <constraint firstItem="9w4-eO-GRy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Llo-0a-qhz"/>
+                <constraint firstItem="fJh-cR-lds" firstAttribute="top" secondItem="9w4-eO-GRy" secondAttribute="bottom" constant="18" id="OWl-OP-BgI"/>
+                <constraint firstItem="jSb-lf-HxS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="VCr-L2-hxG"/>
+                <constraint firstItem="jSb-lf-HxS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="43" id="dJg-Vq-qXg"/>
+                <constraint firstItem="fEK-Bz-6Bm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="esO-6j-OQ5"/>
+                <constraint firstItem="9Jb-vb-Ydw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kMC-Cv-yRu"/>
+                <constraint firstAttribute="bottom" secondItem="bQp-FP-FGJ" secondAttribute="bottom" constant="30" id="kPk-iE-RKa"/>
+                <constraint firstItem="Sft-gT-ITL" firstAttribute="top" secondItem="9Jb-vb-Ydw" secondAttribute="bottom" constant="18" id="m47-5G-9lA"/>
+                <constraint firstItem="Sft-gT-ITL" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sUT-NW-gyM"/>
+                <constraint firstItem="fJh-cR-lds" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="uRn-Ln-kvx"/>
+                <constraint firstItem="9Jb-vb-Ydw" firstAttribute="top" secondItem="jSb-lf-HxS" secondAttribute="bottom" constant="36" id="uwQ-F5-tYs"/>
+                <constraint firstItem="fEK-Bz-6Bm" firstAttribute="top" secondItem="Sft-gT-ITL" secondAttribute="bottom" constant="18" id="wRC-N7-orV"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
